@@ -1,0 +1,63 @@
+---
+import { fullAddress } from "../data/site";
+
+// TODO: las respuestas entre [corchetes] deben completarse con la información real
+const faqs = [
+  {
+    q: "¿Desde qué edad reciben a los niños?",
+    a: "[Completar: edad mínima y máxima para estancia infantil, preescolar y ludoteca.]",
+  },
+  {
+    q: "¿Cuál es el horario?",
+    a: "Abrimos de lunes a viernes. Los lunes de 8:30 a.m. a 6:30 p.m. y de martes a viernes de 8:30 a.m. a 6 p.m.",
+  },
+  {
+    q: "¿Qué necesito para inscribir a mi hijo?",
+    a: "[Completar: documentos requeridos, por ejemplo acta de nacimiento, CURP, cartilla de vacunación, etc.]",
+  },
+  {
+    q: "¿El preescolar tiene validez oficial ante la SEP?",
+    a: "[Completar: indicar si cuentan con incorporación / clave de centro de trabajo.]",
+  },
+  {
+    q: "¿Ofrecen alimentos?",
+    a: "[Completar: si incluyen desayuno, comida o colación, o si los niños llevan lunch.]",
+  },
+  {
+    q: "¿Cuántos niños hay por maestra?",
+    a: "[Completar: número aproximado de niños por grupo y por maestra.]",
+  },
+  {
+    q: "¿Puedo visitar las instalaciones antes de inscribir?",
+    a: `¡Claro! Escríbenos por WhatsApp o llámanos para agendar una visita. Estamos en ${fullAddress}.`,
+  },
+];
+---
+
+<section id="faq" class="bg-white pb-16">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="text-center">
+      <h2 class="font-display text-3xl font-extrabold leading-tight text-ink">
+        Preguntas <span class="text-brand-pink">frecuentes</span>
+      </h2>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-3">
+      {
+        faqs.map((faq) => (
+          <details class="group rounded-2xl bg-cream px-5 py-4 open:shadow-md">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-extrabold text-ink [&::-webkit-details-marker]:hidden">
+              {faq.q}
+              <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-pink text-white transition group-open:rotate-45" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </span>
+            </summary>
+            <p class="mt-3 text-sm font-semibold leading-relaxed text-ink/75">{faq.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

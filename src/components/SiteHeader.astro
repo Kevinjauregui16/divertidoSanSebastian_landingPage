@@ -1,0 +1,168 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/dss_logo.png";
+
+const navItems = [
+  { label: "INICIO", href: "#top", color: "text-brand-pink", icon: "home" },
+  { label: "NOSOTROS", href: "#about", color: "text-brand-blue", icon: "users" },
+  { label: "SERVICIOS", href: "#features", color: "text-brand-yellow", icon: "book" },
+  { label: "RESEÑAS", href: "#reviews", color: "text-brand-purple", icon: "star" },
+  { label: "GALERÍA", href: "#gallery", color: "text-brand-blue", icon: "image" },
+  { label: "PREGUNTAS", href: "#faq", color: "text-brand-pink", icon: "help" },
+  { label: "CONTACTO", href: "#contact", color: "text-brand-green", icon: "mail" },
+];
+
+const icons: Record<string, string> = {
+  home: `<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/>`,
+  users: `<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.7-3 3-4.5 5.5-4.5S13.8 16 14.5 19"/><path d="M15 14.5c2 0 3.8 1.3 4.5 3.5"/>`,
+  book: `<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M19 17H8a3 3 0 0 0-3 3"/>`,
+  image: `<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m5 19 5-5 4 3 3-3 4 4"/>`,
+  star: `<path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5Z"/>`,
+  help: `<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6"/><path d="M12 17h.01"/>`,
+  mail: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>`,
+};
+---
+
+<header id="site-header" class="relative z-30 bg-gradient-to-b from-sky-deep to-sky-soft">
+  <div class="relative mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 pt-6 pb-14 sm:px-6">
+    <a href="#top" class="flex items-center">
+      <Image src={logo} alt="Divertido San Sebastián" class="h-12 w-auto" loading="eager" />
+    </a>
+
+    <div class="flex items-center gap-3 sm:gap-5">
+      <a
+        href="#contact"
+        class="rounded-full bg-brand-pink px-6 py-3 font-display text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-brand-pink/30 transition hover:bg-brand-pink-dark duration-300"
+      >
+        Contáctanos
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Contenedor fijo de altura cero: la barra queda mitad sobre el header y se pega arriba al hacer scroll -->
+<div class="sticky top-0 z-40 h-0">
+  <nav id="site-nav" aria-label="Principal" class="mx-auto max-w-6xl -translate-y-10 px-4 sm:px-6">
+    <!-- escritorio -->
+    <ul
+      class="hidden items-stretch gap-1 rounded-3xl bg-white p-2 shadow-[0_20px_45px_-20px_rgba(43,58,103,0.45)] md:flex md:justify-between"
+    >
+      {
+        navItems.map((item) => (
+          <li class="flex-1">
+            <a
+              href={item.href}
+              data-nav-link
+              class="group flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-center transition hover:bg-sky-soft/50 data-active:bg-sky-soft/60"
+            >
+              <span class:list={["transition group-hover:scale-110", item.color]}>
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+              </span>
+              <span class="font-display text-xs font-bold uppercase tracking-wide text-ink/70 group-data-active:text-brand-pink">
+                {item.label}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- celular -->
+    <div class="rounded-3xl bg-white p-2 shadow-[0_20px_45px_-20px_rgba(43,58,103,0.45)] md:hidden">
+      <button
+        type="button"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-mobile-list"
+        class="flex w-full items-center justify-between gap-3 rounded-2xl px-4 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-ink"
+      >
+        <span id="nav-current">Inicio</span>
+        <span class="flex items-center gap-2 text-brand-pink">
+          Menú
+          <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </span>
+      </button>
+
+      <ul id="nav-mobile-list" class="hidden flex-col gap-1 border-t border-ink/10 pt-2 data-open:flex">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                data-nav-link
+                class="group flex items-center gap-3 rounded-2xl px-4 py-2.5 transition hover:bg-sky-soft/50 data-active:bg-sky-soft/60"
+              >
+                <span class={item.color}>
+                  <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[item.icon]} />
+                </span>
+                <span class="font-display text-sm font-bold uppercase tracking-wide text-ink/70 group-data-active:text-brand-pink">
+                  {item.label}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<script>
+  const header = document.getElementById("site-header")!;
+  const nav = document.getElementById("site-nav")!;
+  const toggle = document.getElementById("nav-toggle")!;
+  const mobileList = document.getElementById("nav-mobile-list")!;
+  const current = document.getElementById("nav-current")!;
+  const links = [...document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]")];
+
+  // Posición de la barra: a medio header en reposo, a 12px del borde al hacer scroll
+  const REST_OFFSET = 40;
+  const STUCK_TOP = 12;
+  const placeNav = () => {
+    const headerBottom = header.getBoundingClientRect().bottom;
+    const wrapperTop = Math.max(headerBottom, 0);
+    const navTop = Math.max(headerBottom - REST_OFFSET, STUCK_TOP);
+    // `translate` (no `transform`) para reemplazar la clase -translate-y-10 en lugar de sumarse
+    nav.style.translate = `0 ${navTop - wrapperTop}px`;
+  };
+  placeNav();
+  addEventListener("scroll", placeNav, { passive: true });
+  addEventListener("resize", placeNav);
+
+  // Menú de celular
+  const setOpen = (open: boolean) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    mobileList.toggleAttribute("data-open", open);
+  };
+  toggle.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+  mobileList.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("a")) setOpen(false);
+  });
+
+  // Resalta la sección visible
+  const setActive = (id: string) => {
+    for (const link of links) {
+      const active = link.hash === `#${id}`;
+      link.toggleAttribute("data-active", active);
+      if (active) {
+        link.setAttribute("aria-current", "true");
+        current.textContent = link.textContent!.trim().toLowerCase();
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    }
+  };
+  const sections = [...new Set(links.map((l) => l.hash))]
+    .map((hash) => document.querySelector<HTMLElement>(hash))
+    .filter((el): el is HTMLElement => el !== null);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  sections.forEach((s) => observer.observe(s));
+  setActive("top");
+</script>

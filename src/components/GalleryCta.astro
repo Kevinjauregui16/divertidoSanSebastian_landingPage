@@ -1,0 +1,92 @@
+---
+import { Image, getImage } from "astro:assets";
+import heroImg from "../assets/dss_hero.png";
+import service1 from "../assets/dss_service1.png";
+import service2 from "../assets/dss_service2.png";
+import service3 from "../assets/dss_service3.png";
+import welcomeImg from "../assets/dss_welcome.png";
+
+// TODO: agregar fotos nuevas (eventos, festivales, salones) en src/assets e importarlas aquí
+const gallery = [
+  { src: heroImg, alt: "Una maestra jugando con bloques de colores junto a dos niños en el aula", class: "col-span-2 row-span-2" },
+  { src: service1, alt: "Niños en actividad de estancia infantil" },
+  { src: service2, alt: "Niños en actividad de preescolar" },
+  { src: welcomeImg, alt: "Grupo de niños sonriendo mientras juegan con bloques de colores", class: "col-span-2" },
+  { src: service3, alt: "Niños en la ludoteca y club de tareas" },
+];
+
+const items = await Promise.all(
+  gallery.map(async (item) => ({ ...item, full: (await getImage({ src: item.src, format: "webp" })).src })),
+);
+---
+
+<section id="gallery" class="relative overflow-hidden py-20">
+  <div class="relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-3">
+    <div class="text-center lg:text-left">
+      <h2 class="font-display text-4xl font-extrabold leading-tight text-ink sm:text-5xl">
+        Niños felices,<br />
+        <span class="text-brand-pink">¡futuros brillantes!</span>
+      </h2>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-md lg:col-span-2 lg:max-w-none">
+      <div class="grid grid-cols-3 gap-3 auto-rows-25 sm:auto-rows-32.5">
+        {
+          items.map((item) => (
+            <button
+              type="button"
+              data-gallery-item
+              data-full={item.full}
+              data-alt={item.alt}
+              aria-label={`Ver foto: ${item.alt}`}
+              class:list={["group cursor-zoom-in overflow-hidden rounded-2xl border-2 border-white shadow-xl transition hover:shadow-2xl", item.class]}
+            >
+              <Image
+                src={item.src}
+                alt={item.alt}
+                widths={[320, 640]}
+                sizes="(min-width: 1024px) 480px, 66vw"
+                class="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+              />
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <dialog
+    id="gallery-dialog"
+    class="m-auto max-h-[90vh] max-w-[min(90vw,48rem)] overflow-visible bg-transparent p-0 backdrop:bg-ink/80 backdrop:backdrop-blur-sm"
+  >
+    <img id="gallery-dialog-img" src="" alt="" class="max-h-[85vh] w-auto rounded-2xl border-4 border-white object-contain shadow-2xl" />
+    <form method="dialog">
+      <button
+        type="submit"
+        aria-label="Cerrar"
+        class="absolute -top-4 -right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink shadow-lg transition hover:bg-brand-pink hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+    </form>
+  </dialog>
+</section>
+
+<script>
+  const dialog = document.getElementById("gallery-dialog") as HTMLDialogElement;
+  const img = document.getElementById("gallery-dialog-img") as HTMLImageElement;
+
+  for (const item of document.querySelectorAll<HTMLButtonElement>("[data-gallery-item]")) {
+    item.addEventListener("click", () => {
+      img.src = item.dataset.full!;
+      img.alt = item.dataset.alt!;
+      dialog.showModal();
+    });
+  }
+  // Cerrar al hacer clic fuera de la imagen
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>

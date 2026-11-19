@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import heroImg from "../assets/dss_hero.png";
+---
+
+<section id="top" class="relative overflow-hidden bg-gradient-to-b from-sky-soft via-sky-soft to-white pt-20 pb-28">
+  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2">
+    <!-- copy -->
+    <div class="text-center lg:text-left">
+      <h1 class="font-display text-4xl font-extrabold leading-[1.1] text-ink sm:text-5xl xl:text-6xl">
+        Enseñando desde<br />
+        el <span class="text-brand-pink">Corazón</span>!
+      </h1>
+      <p class="mx-auto max-w-md text-xl font-bold text-ink/80 lg:mx-0">
+        Un lugar perfecto para que tu hijo
+        <span class="text-brand-blue"> aprenda</span>,
+        <span class="text-brand-green"> crezca</span> y se
+        <span class="text-brand-yellow"> divierta</span>.
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 rounded-full bg-brand-pink px-7 py-3.5 font-display text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-brand-pink/30 transition hover:-translate-y-0.5 duration-200 hover:bg-brand-pink-dark"
+        >
+          Inscríbete ya
+          <span aria-hidden="true">→</span>
+        </a>
+        <a
+          href="#features"
+          class="inline-flex items-center gap-2 rounded-full border-2 border-brand-pink bg-white px-7 py-3.5 font-display text-sm font-extrabold uppercase tracking-wide text-brand-pink transition hover:-translate-y-0.5 duration-200 hover:bg-brand-pink hover:text-white"
+        >
+          Conoce más
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- image -->
+    <div class="relative mx-auto w-full max-w-md">
+      <div class="relative overflow-hidden rounded-[42%_58%_70%_30%/45%_45%_55%_55%]">
+        <Image
+          src={heroImg}
+          alt="Una maestra jugando con bloques de colores junto a dos niños en el aula"
+          widths={[448, 736]}
+          sizes="(min-width: 448px) 448px, 100vw"
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- cloud bottom edge -->
+  <svg class="absolute inset-x-0 bottom-0 w-full text-white" viewBox="0 0 1440 90" fill="currentColor" aria-hidden="true" preserveAspectRatio="none">
+    <path d="M0 90h1440V40c-60 24-120 12-180 4S1140 30 1080 44s-120 20-180 8-120-40-180-40-120 28-180 36-120-4-180-16S180 6 120 12 30 44 0 52Z" />
+  </svg>
+</section>

@@ -1,0 +1,53 @@
+---
+// TODO: plantilla base. Debe revisarse y completarse (de preferencia con asesoría legal)
+// conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+import Layout from "../layouts/Layout.astro";
+import { business, fullAddress } from "../data/site";
+---
+
+<Layout title="Aviso de privacidad | Divertido San Sebastián" description="Aviso de privacidad de Divertido San Sebastián.">
+  <main class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <a href="/" class="text-sm font-bold text-brand-pink hover:underline">← Volver al inicio</a>
+
+    <h1 class="mt-6 font-display text-3xl font-extrabold text-ink sm:text-4xl">Aviso de privacidad</h1>
+
+    <div class="mt-8 flex flex-col gap-6 text-sm font-semibold leading-relaxed text-ink/80 sm:text-base [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-extrabold [&_h2]:text-ink">
+      <section>
+        <h2>Responsable</h2>
+        <p>
+          {business.name}, con domicilio en {fullAddress}, es responsable del uso y protección de sus datos
+          personales.
+        </p>
+      </section>
+
+      <section>
+        <h2>Datos que recabamos</h2>
+        <p>
+          Para brindarle información y prestar nuestros servicios podemos recabar: nombre, teléfono, correo
+          electrónico y datos del menor necesarios para su inscripción y cuidado.
+        </p>
+      </section>
+
+      <section>
+        <h2>Finalidades</h2>
+        <p>
+          Sus datos se utilizan para responder solicitudes de información, agendar visitas, gestionar
+          inscripciones y mantener comunicación sobre el desarrollo y bienestar de su hijo.
+        </p>
+      </section>
+
+      <section>
+        <h2>Derechos ARCO</h2>
+        <p>
+          Usted puede acceder, rectificar, cancelar u oponerse al uso de sus datos personales enviando una
+          solicitud a <a href={`mailto:${business.privacyEmail}`} class="text-brand-pink underline">{business.privacyEmail}</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Cambios al aviso</h2>
+        <p>Cualquier cambio a este aviso de privacidad se publicará en esta página.</p>
+      </section>
+    </div>
+  </main>
+</Layout>

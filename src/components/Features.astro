@@ -1,0 +1,89 @@
+---
+import { Image } from "astro:assets";
+import service1 from "../assets/dss_service1.png";
+import service2 from "../assets/dss_service2.png";
+import service3 from "../assets/dss_service3.png";
+import service4 from "../assets/dss_service4.png";
+import { whatsappLink } from "../data/site";
+
+const cards = [
+  {
+    title: "Estancia infantil",
+    text: "Cuidado cálido y actividades diarias para los más pequeños.",
+    img: service1,
+    alt: "Niños en actividad de estancia infantil",
+    theme: "bg-brand-blue",
+    blob: "rounded-[60%_40%_55%_45%/45%_55%_45%_55%]",
+    icon: `<circle cx="12" cy="10" r="5"/><circle cx="7" cy="6" r="2"/><circle cx="17" cy="6" r="2"/><path d="M8 21c0-3 1.8-5 4-5s4 2 4 5"/>`,
+  },
+  {
+    title: "Preescolar 1° y 2°",
+    text: "Primeros pasos en el aprendizaje, jugando y explorando.",
+    img: service2,
+    alt: "Niños en actividad de preescolar",
+    theme: "bg-brand-pink",
+    blob: "rounded-[42%_58%_70%_30%/45%_45%_55%_55%]",
+    icon: `<path d="M12 4 2 9l10 5 10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>`,
+  },
+  {
+    title: "Ludoteca y club de tareas",
+    text: "Diversión y apoyo con las tareas fuera del horario escolar.",
+    img: service3,
+    alt: "Niños en la ludoteca y club de tareas",
+    theme: "bg-brand-green",
+    blob: "rounded-[55%_45%_40%_60%/60%_40%_60%_40%]",
+    icon: `<path d="M4 5h9a2 2 0 0 1 2 2v12H6a2 2 0 0 1-2-2Z"/><path d="M19 19H6a2 2 0 0 1-2-2"/><rect x="15" y="4" width="5" height="5" rx="1"/>`,
+  },
+  {
+    title: "Cursos y talleres",
+    text: "Actividades extra para aprender, crear y divertirse.",
+    img: service4,
+    alt: "Niños en un taller de actividades creativas",
+    theme: "bg-brand-yellow",
+    blob: "rounded-[35%_65%_60%_40%/50%_60%_40%_50%]",
+    icon: `<path d="M12 3a9 9 0 1 0 9 9c0-1-.8-1.5-1.8-1.5h-2a2 2 0 0 1-1.4-3.4A2 2 0 0 0 14.4 4 9 9 0 0 0 12 3Z"/><circle cx="8" cy="10" r="1"/><circle cx="8" cy="14" r="1"/><circle cx="12" cy="16.5" r="1"/>`,
+  },
+];
+---
+
+<section id="features" class="bg-white py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <h2 class="mb-10 text-center font-display text-3xl font-extrabold leading-tight text-ink">
+      Nuestros <span class="text-brand-pink">servicios</span>
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {
+        cards.map((card) => (
+          <article
+            class:list={[
+              "flex flex-col items-center rounded-[2rem] p-6 text-center text-white shadow-xl transition hover:-translate-y-2 duration-200",
+              card.theme,
+            ]}
+          >
+            <div class="flex flex-col items-center gap-2">
+              <svg viewBox="0 0 24 24" class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={card.icon} />
+              <h3 class="font-display text-lg font-extrabold">{card.title}</h3>
+            </div>
+
+            <div class:list={["my-5 h-28 w-28 overflow-hidden border-2 border-white/70", card.blob]}>
+              <Image src={card.img} alt={card.alt} width={224} class="h-full w-full object-cover" />
+            </div>
+
+            <p class="mb-5 text-sm font-semibold text-white/90">{card.text}</p>
+
+            <a
+              href={whatsappLink(`¡Hola! Me gustaría recibir información sobre ${card.title}: edades, horarios y costos.`)}
+              target="_blank"
+              rel="noopener"
+              class="mt-auto inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 font-display text-xs font-extrabold uppercase tracking-wide text-ink transition hover:bg-white/85"
+            >
+              Más información
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

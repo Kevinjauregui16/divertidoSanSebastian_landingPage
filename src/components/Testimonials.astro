@@ -1,0 +1,93 @@
+---
+import { business } from "../data/site";
+
+const star = `<path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5Z"/>`;
+
+const reviews = [
+  {
+    quote:
+      "Excelente escuela, con un ambiente muy profesional, las maestras están muy preparadas y se nota el interés por el aprendizaje de los alumnos. La comunicación con los padres es clara y constante la Directora sabe escuchar y entiende las necesidades de cada niño, lo que da mucha confianza. Además, las instalaciones son seguras, limpias y bien cuidadas. Recomiendo ampliamente esta escuela a quienes buscan una educación de calidad.",
+    name: "Brenda Vivianna",
+    initials: "BV",
+    color: "bg-brand-pink",
+  },
+  {
+    quote: "Excelente servicio ✨ cuentan con varios servicios educativos ❤️ Súper recomendado 👌…",
+    name: "María Guadalupe Jiménez Robles",
+    initials: "MG",
+    color: "bg-brand-blue",
+  },
+  {
+    quote: "El mejor kínder, ludoteca y estancia con la mejor maestra ☺️",
+    name: "Iraís Cruz Ruiz",
+    initials: "IC",
+    color: "bg-brand-green",
+  },
+];
+---
+
+<section id="reviews" class="bg-white pb-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="rounded-[2rem] bg-blue-50 px-6 py-10 shadow-inner md:px-10">
+      <div class="text-center">
+        <h2 class="mt-4 font-display text-3xl font-extrabold leading-tight text-ink">
+          Lo que dicen <span class="text-brand-pink">de nosotros</span>
+        </h2>
+      </div>
+
+      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          reviews.map((review) => (
+            <li class="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <div class="flex gap-1 text-brand-yellow">
+                {Array.from({ length: 5 }).map(() => (
+                  <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round" set:html={star} />
+                ))}
+              </div>
+
+              <div>
+                <p data-quote class="line-clamp-5 text-sm font-semibold leading-relaxed text-ink/80 data-expanded:line-clamp-none">“{review.quote}”</p>
+                <button type="button" data-quote-toggle aria-expanded="false" hidden class="mt-2 text-sm font-bold text-brand-pink hover:underline">
+                  Leer más
+                </button>
+              </div>
+
+              <div class="mt-auto flex items-center gap-3">
+                <span class:list={["flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-xs font-extrabold text-white", review.color]}>
+                  {review.initials}
+                </span>
+                <span class="text-sm font-bold text-ink">{review.name}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-10 text-center">
+        <a
+          href={business.mapsUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full border-2 border-brand-pink bg-white px-7 py-3 font-display text-sm font-extrabold uppercase tracking-wide text-brand-pink transition hover:-translate-y-0.5 hover:bg-brand-pink hover:text-white"
+        >
+          Ver todas las reseñas en Google
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  for (const toggle of document.querySelectorAll<HTMLButtonElement>("[data-quote-toggle]")) {
+    const quote = toggle.previousElementSibling as HTMLElement;
+    // Solo muestra "Leer más" si el texto realmente se corta
+    if (quote.scrollHeight <= quote.clientHeight) continue;
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => {
+      const expanded = quote.toggleAttribute("data-expanded");
+      toggle.setAttribute("aria-expanded", String(expanded));
+      toggle.textContent = expanded ? "Leer menos" : "Leer más";
+    });
+  }
+</script>

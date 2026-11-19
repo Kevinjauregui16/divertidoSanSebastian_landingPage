@@ -1,0 +1,101 @@
+---
+import { business, fullAddress, schedule, whatsappLink } from "../data/site";
+---
+
+<section id="contact" class="py-16 bg-gradient-to-b from-white via-[#eaf7d8] to-leaf-dark">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="text-center">
+      <h2 class="mt-4 font-display text-3xl font-extrabold leading-tight text-ink">
+        Ven, <span class="text-brand-pink">conócenos</span>
+      </h2>
+    </div>
+
+    <div class="mt-10 grid gap-6 rounded-[2rem] bg-cream p-6 shadow-inner md:grid-cols-2 md:p-10">
+      <!-- info -->
+      <div class="flex flex-col gap-6">
+        <div class="flex items-start gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-blue/15 text-brand-blue">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5c0 8.3 6.7 15 15 15l1.5-3.5-4-1.6-1.7 1.7a11 11 0 0 1-5.1-5.1l1.7-1.7L9.8 5.5Z" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold uppercase tracking-wide text-ink/60">Teléfono</h3>
+            <a href={`tel:${business.phone}`} class="font-display text-lg font-extrabold text-ink transition hover:text-brand-pink">
+              {business.phoneLabel}
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-pink/15 text-brand-pink">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12Z" />
+              <circle cx="12" cy="9" r="2.5" />
+            </svg>
+          </span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold uppercase tracking-wide text-ink/60">Ubicación</h3>
+            <p class="font-semibold text-ink">{fullAddress}</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green/15 text-brand-green">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 3" />
+            </svg>
+          </span>
+          <div class="w-full">
+            <h3 class="font-display text-sm font-extrabold uppercase tracking-wide text-ink/60">Horarios</h3>
+            <ul class="mt-1 divide-y divide-ink/10 text-sm font-semibold text-ink/80">
+              {
+                schedule.map((item) => (
+                  <li class="flex justify-between gap-4 py-1">
+                    <span>{item.day}</span>
+                    <span class:list={[item.hours === "Cerrado" && "text-ink/40"]}>{item.hours}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-2 flex flex-wrap gap-3">
+          <a
+            href={whatsappLink()}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex w-fit items-center gap-2 rounded-full bg-[#25d366] px-7 py-3 font-display text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-[#25d366]/30 transition hover:-translate-y-0.5 hover:bg-[#1ebe5a]"
+          >
+            WhatsApp
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href={`tel:${business.phone}`}
+            class="inline-flex w-fit items-center gap-2 rounded-full bg-brand-pink px-7 py-3 font-display text-sm font-extrabold uppercase tracking-wide text-white shadow-lg shadow-brand-pink/30 transition hover:-translate-y-0.5 hover:bg-brand-pink-dark"
+          >
+            Llámanos
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- map -->
+      <div class="overflow-hidden rounded-3xl border-2 border-white shadow-xl">
+        <iframe
+          src={business.mapsEmbed}
+          width="600"
+          height="450"
+          style="border:0;"
+          class="h-full min-h-[320px] w-full"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="Ubicación de Divertido San Sebastián en Google Maps"
+        />
+      </div>
+    </div>
+  </div>
+</section>
